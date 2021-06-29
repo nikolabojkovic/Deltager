@@ -5,7 +5,7 @@ namespace Persistence
 {
     public static class DbInitializer
     {        
-        public static void Initialize(ISqlDbContext context)
+        public static void Initialize(IDbContext context)
         {
             context.Database.Migrate();
             context.Database.EnsureCreated();

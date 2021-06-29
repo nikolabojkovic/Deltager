@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 using FluentAssertions;
 using Domain;
@@ -8,7 +7,7 @@ namespace UnitTests
     public class SheduleAppointmentTest
     {
         [Fact]
-        public void Create_Appointment_SchedulePendingAppoinment()
+        public void Create_Product_ShouldCreateProduct()
         {
             // Arrange
             var productName = "MacBook Pro";

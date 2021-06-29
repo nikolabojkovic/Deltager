@@ -18,8 +18,8 @@ namespace WebApi
 
             services.AddDbContext<InMemoryDbContext>(opt => opt.UseInMemoryDatabase("InMemoryDatabase"));
 
-            services.AddScoped<ISqlDbContext, SqlDbContext>();
-            // services.AddScoped<ISqlDbContext, InMemoryDbContext>();
+           // services.AddScoped<ISqlDbContext, SqlDbContext>();
+            services.AddScoped<IDbContext, InMemoryDbContext>();
 
             return services;
         }

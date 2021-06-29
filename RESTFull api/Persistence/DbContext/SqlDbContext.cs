@@ -8,9 +8,10 @@ using System.Threading;
 
 namespace Persistence
 {
-    public class SqlDbContext : DbContext, ISqlDbContext
+    public class SqlDbContext : DbContext, IDbContext
     {
         public DbSet<Container> Containers { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public SqlDbContext(DbContextOptions<SqlDbContext> options)
             :base(options) { }

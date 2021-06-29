@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Persistence
 {
-    public class InMemoryDbContext : DbContext, ISqlDbContext
+    public class InMemoryDbContext : DbContext, IDbContext
     {
         public InMemoryDbContext(DbContextOptions<InMemoryDbContext> options)
             : base(options)
@@ -15,6 +15,7 @@ namespace Persistence
         }
 
         public DbSet<Container> Containers { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

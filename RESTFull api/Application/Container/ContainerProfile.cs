@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoMapper;
 using Domain;
 
@@ -7,7 +8,8 @@ namespace Application
     {
         public ContainerProfile()
         {
-            CreateMap<Container, ContainerViewModel>();
+            CreateMap<Container, ContainerViewModel>()
+                .ForMember(src => src.Products, opt => opt.MapFrom(x => x.Products));
         }
     }
 }

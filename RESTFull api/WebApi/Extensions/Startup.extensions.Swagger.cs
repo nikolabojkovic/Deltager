@@ -22,7 +22,7 @@ namespace WebApi
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "deltager_web_api v1");
-                c.RoutePrefix = "api";
+                c.RoutePrefix = "";
             });
             
             return app;

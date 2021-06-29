@@ -16,7 +16,7 @@ namespace WebApi
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<ISqlDbContext>();
+                    var context = services.GetRequiredService<IDbContext>();
 
                     if (context is SqlDbContext)
                         DbInitializer.Initialize(context);

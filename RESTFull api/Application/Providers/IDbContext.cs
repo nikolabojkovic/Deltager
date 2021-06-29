@@ -7,9 +7,12 @@ using System.Threading;
 
 namespace Application
 {
-    public interface ISqlDbContext
+    public interface IDbContext
     {
         DbSet<Container> Containers { get; set; }
+        DbSet<Product> Products { get; set; }
+
+
         DatabaseFacade Database { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
