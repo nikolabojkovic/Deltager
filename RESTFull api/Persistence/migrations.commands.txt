@@ -1,0 +1,4 @@
+dotnet ef migrations add InitialMigration --context SqlDbContext --startup-project "../WebApi/WebApi.csproj" 
+dotnet ef migrations list --context SqlDbContext --startup-project "../WebApi/WebApi.csproj" 
+dotnet ef database update --context SqlDbContext --startup-project "../WebApi/WebApi.csproj" 
+dotnet ef migrations remove --context SqlDbContext --startup-project "../WebApi/WebApi.csproj" 
