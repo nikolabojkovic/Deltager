@@ -4,4 +4,5 @@ dotnet ef database update --context SqlDbContext --startup-project "../WebApi/We
 dotnet ef migrations remove --context SqlDbContext --startup-project "../WebApi/WebApi.csproj" 
 
 Work hours : 
-29.6.2020 - 5h
+29.06.2020 - 9h 
+30.06.2020 - 

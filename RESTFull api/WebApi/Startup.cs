@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using AutoMapper;
-using MediatR;
-using System;
+using Application;
+using FluentValidation.AspNetCore;
 
 namespace WebApi
 {
@@ -22,13 +22,13 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
             services.AddAutoMapper(new Assembly[] { Assembly.Load("Application") });
             services.AddSwagger();
             services.AddDepenedencyInjection();
             services.AddAllOriginsCors();
-            services.AddMediatR(new Assembly[] { Assembly.Load("Application") });
+            services.AddMediatR();
             services.AddDbContext(Configuration);
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
