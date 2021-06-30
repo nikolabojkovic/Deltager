@@ -16,6 +16,7 @@ namespace WebApi
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddMediatR(new Assembly[] { Assembly.Load("Application") });
             
+            // TODO: Find better way to register all validators at once
             services.AddTransient(typeof(IValidator<CreateProductCommand>), typeof(CreateProductCommandValidator));
 
             return services;
