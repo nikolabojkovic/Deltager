@@ -40,10 +40,11 @@ namespace WebApi
             }
 
             app.UseCustomSwagger();
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
             app.AddMiddlewares();
+            app.UseAllOriginsCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

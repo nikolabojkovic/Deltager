@@ -31,7 +31,7 @@ namespace Application
             var productsToAdd = await _dbContext.Products.Where(x => request.ProductsToAdd.Contains(x.Id))
                                                          .ToListAsync();
 
-            // Support adding one product to container multiple times
+            // Support adding the same product to container multiple times
             productsToAdd = request.ProductsToAdd.Select(id => productsToAdd.Find(p => p.Id == id))
                                                  .ToList();
 

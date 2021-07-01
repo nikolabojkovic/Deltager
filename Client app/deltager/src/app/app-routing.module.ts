@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'containers',
     loadChildren: () => import('./modules/container/container.module').then((m) => m.ContainerModule),
   },
   {
@@ -13,12 +13,12 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
-  },
+    redirectTo: 'containers',
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
