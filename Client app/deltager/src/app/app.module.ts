@@ -14,8 +14,9 @@ import { ContainerModule } from './modules/container/container.module';
 
 registerLocaleData(en);
 
-export const httpLoaderFactory = (http: HttpClient) =>
-  new TranslateHttpLoader(http, '/assets/i18n/', '.json?date=' + new Date().getTime());
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -27,10 +28,9 @@ export const httpLoaderFactory = (http: HttpClient) =>
     BrowserAnimationsModule,
     HttpClientModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'en-US',
       loader: {
         provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
+        useFactory: (createTranslateLoader),
         deps: [HttpClient],
       },
     }),

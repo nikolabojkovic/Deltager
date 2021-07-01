@@ -1,36 +1,42 @@
-<h1>Container {{ container.name }}</h1>
-<mat-form-field appearance="fill">
-    <mat-label>Choose product</mat-label>
-    <mat-select [(ngModel)]="selectedProduct">
-      <mat-option *ngFor="let product of allProducts" [value]="product">
-        {{product.name}}
-      </mat-option>
-    </mat-select>
-</mat-form-field>
-<button mat-raised-button (click)="addProduct(selectedProduct)" [disabled]="!selectedProduct">
-    Add Product
-</button>
-<table mat-table [dataSource]="container.products">
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element; let i = index">
-          <mat-icon (click)="removedProduct(i, element)" aria-hidden="false" aria-label="Delete">delete</mat-icon>
-      </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{element.name}}</td>
-    </ng-container>
+<div *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+    <div>{{ proccessingMessage }}</div>
+</div>
+<div *ngIf="!isLoading">
+    <h1>{{ container.name }}</h1>
+    <mat-form-field appearance="fill">
+        <mat-label>{{ 'chooseProduct' | translate }}</mat-label>
+        <mat-select [(ngModel)]="selectedProduct">
+        <mat-option *ngFor="let product of allProducts" [value]="product">
+            {{ product.name }}
+        </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button (click)="addProduct(selectedProduct)" [disabled]="!selectedProduct">
+        {{ 'button.addProduct' | translate | uppercase }}
+    </button>
+    <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element; let i = index">
+            <mat-icon (click)="removedProduct(i, element)" aria-hidden="false" aria-label="Delete">delete</mat-icon>
+        </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>{{ 'name' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef>Type</th>
-        <td mat-cell *matCellDef="let element">{{element.type}}</td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-<button mat-raised-button (click)="saveContainer()">
-    Save container
-</button>
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>{{ 'type' | translate }}</th>
+            <td mat-cell *matCellDef="let element">{{element.type}}</td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <button mat-raised-button (click)="saveContainer()">
+        {{ 'button.save' | translate | uppercase }}
+    </button>
+</div>

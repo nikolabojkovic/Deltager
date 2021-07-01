@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from 'src/app/modules/product/product.model';
 import { ProductService } from 'src/app/modules/product/product.service';
-import { Container } from '../../container.model';
-import { ProductPackage } from '../../product-package.model';
+import { ContainerService } from '../../container.service';
+import { Container } from '../../models/container.model';
+import { ProductPackage } from '../../models/product-package.model';
 
 @Component({
     selector: 'app-container',
@@ -11,28 +12,46 @@ import { ProductPackage } from '../../product-package.model';
 })
 export class ContainerComponent implements OnInit {
 
+    constructor(private productService: ProductService,
+                private containerService: ContainerService) { }
+
     @Input() container: Container;
+    @Output() refreshContainers = new EventEmitter();
 
     displayedColumns: string[] = ['id', 'name', 'type'];
+    dataSource: ProductPackage[] = [];
     allProducts: Product[];
     productsToAdd: number[] = [];
     productsToRemove: number[] = [];
     selectedProduct: Product;
-
-    constructor(private productService: ProductService) { }
+    isLoading: boolean;
+    proccessingMessage: string;
 
     ngOnInit(): void {
-        this.productService.fetchProducts().subscribe(products => this.allProducts = products);
+        this.isLoading = true;
+        this.proccessingMessage = 'Loading...';
+        this.productService.fetchProducts().subscribe(products => {
+            this.allProducts = products;
+            this.isLoading = false;
+        });
+        this.dataSource = [...this.container.products];
     }
 
     addProduct(product: Product): void {
         this.productsToAdd.push(product.id);
-        this.container.products = [...this.container.products, new ProductPackage(product.id, product.name, product.type, 0)];
-        console.log(this.productsToAdd);
+        this.dataSource = [...this.dataSource, new ProductPackage(product.id, product.name, product.type, 0)];
     }
 
     saveContainer(): void {
-
+        this.isLoading = true;
+        this.proccessingMessage = 'Saving...';
+        this.containerService.updateContainer(this.container.id, this.productsToAdd, this.productsToRemove).subscribe(
+            () => {
+                this.productsToAdd = [];
+                this.productsToRemove = [];
+                this.refreshContainers.emit();
+                this.isLoading = false;
+            });
     }
 
     removedProduct(index: number, product): void {
@@ -40,15 +59,12 @@ export class ContainerComponent implements OnInit {
            const indexByProductId = this.productsToAdd.findIndex(id => id === product.id);
            this.productsToAdd.splice(indexByProductId, 1);
 
-           this.container.products = this.container.products.filter(x => x !== this.container.products[index]);
-           console.log(this.productsToAdd);
+           this.dataSource = this.dataSource.filter(x => x !== this.dataSource[index]);
 
            return;
         }
 
-        // console.log(index);
         this.productsToRemove.push(product.productPackageId);
-        console.log(this.productsToRemove);
-        this.container.products = this.container.products.filter(x => x !== this.container.products[index]);
+        this.dataSource = this.dataSource.filter(x => x !== this.dataSource[index]);
     }
 }

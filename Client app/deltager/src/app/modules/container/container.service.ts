@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { Observable } from 'rxjs';
-import { Container } from './container.model';
+import { Container } from './models/container.model';
 
 @Injectable({
     providedIn: 'root'
@@ -14,5 +14,9 @@ export class ContainerService {
 
     fetchContainers(): Observable<Container[]> {
         return this.httpService.get(this.containersUrl + '?pageNumber=1&pageSize=10');
+    }
+
+    updateContainer(id: number, toAdd: number[], toRemove: number[]) {
+        return this.httpService.put(this.containersUrl + '/' + id, { productsToAdd: toAdd, productPackagesToRemove: toRemove });
     }
 }

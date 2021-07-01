@@ -30,7 +30,7 @@ namespace WebApi
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(IActionResult), 204)]
-        public async Task<IActionResult> Post([FromRoute] int id, [FromBody] UpdateContainerCommand command)
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateContainerCommand command)
         {
             command.ContainerId = id;
             await MediatR.Send(command);

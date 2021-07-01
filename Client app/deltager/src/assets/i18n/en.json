@@ -1,0 +1,16 @@
+{
+    "products": "Products",
+    "container": "Container",
+    "containers": "Containers",
+    "name": "Name",
+    "type": "Type",
+    "chooseProduct": "Choose product",
+    "enterProductName": "Enter product name",
+    "enterProductType": "Enter product type",
+    "backToContainers": "Back to containers",
+    "manageProducts": "Manage products",
+    "button": {
+        "save" : "Save",
+        "addProduct": "Add product"
+    }
+}
