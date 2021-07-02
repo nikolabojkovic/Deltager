@@ -1,3 +1,4 @@
+
 <button class="nav-button" mat-raised-button routerLink="/containers">
   {{ 'backToContainers' | translate }}
 </button>
@@ -11,22 +12,39 @@
     [colspan]="4"
     [rowspan]="1">
     <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <form class="example-form">
-        <button mat-raised-button (click)="addProduct()">
-          {{ 'button.addProduct' | translate }}
+    <form name="productForm" #p="ngForm" *ngIf="!isLoading">
+        <button mat-raised-button 
+                class="form-button" 
+                (click)="addProduct()"
+                [disabled]="!productName || !productType">
+          {{ 'button.addProduct' | translate | uppercase }}
         </button>
         <mat-form-field appearance="fill">
             <mat-label>{{ 'enterProductName' | translate }}</mat-label>
-            <input matInput placeholder="Product name here..." [(ngModel)]="productName" name="productName"/>
+            <input matInput 
+                   requried
+                   placeholder="Product name here..."
+                   type="text" 
+                   [(ngModel)]="productName" 
+                   name="name"
+                   #n="ngModel"/>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>{{ 'enterProductType' | translate }}</mat-label>
-            <input matInput placeholder="Product type here..." [(ngModel)]="prouctType" name="productType"/>
+            <input matInput 
+                   requried
+                   placeholder="Product type here..."
+                   type="text"
+                   [(ngModel)]="productType" 
+                   name="t"
+                   #t="ngModel"/>
         </mat-form-field>
     </form>
   </mat-grid-tile>
 </mat-grid-list>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+<table mat-table 
+       *ngIf="!isLoading" 
+       [dataSource]="dataSource">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>No.</th>
     <td mat-cell *matCellDef="let element">{{element.id}}</td>

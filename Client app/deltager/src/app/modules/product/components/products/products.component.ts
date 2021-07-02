@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../product.model';
 import { ProductService } from '../../product.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-products',
@@ -11,12 +12,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProductsComponent implements OnInit {
 
     constructor(private productService: ProductService,
-                private snackBar: MatSnackBar) { }
+                private snackBar: MatSnackBar,
+                private translate: TranslateService) { }
 
     dataSource = [ ];
     displayedColumns: string[] = ['id', 'name', 'type'];
     productName: string;
-    prouctType: string;
+    productType: string;
     isLoading: boolean;
 
     ngOnInit(): void {
@@ -24,10 +26,10 @@ export class ProductsComponent implements OnInit {
     }
 
     addProduct(): void {
-        const product = new Product(this.productName, this.prouctType);
+        const product = new Product(this.productName, this.productType);
         this.productService.creteProduct(product).subscribe({
             next: () => this.fetchProducts(),
-            error: (err) => this.snackBar.open('Adding product failed', 'Dismiss')
+            error: () => this.snackBar.open(this.translate.instant('failure.createProduct'), this.translate.instant('dismiss'))
         });
     }
 
@@ -38,8 +40,8 @@ export class ProductsComponent implements OnInit {
                 this.dataSource = containers;
                 this.isLoading = false;
             },
-            error: (err) => {
-                this.snackBar.open('Loading products failed', 'Dismiss');
+            error: () => {
+                this.snackBar.open(this.translate.instant('failure.loadProducts'), this.translate.instant('dismiss'));
                 this.isLoading = false;
             }
         });

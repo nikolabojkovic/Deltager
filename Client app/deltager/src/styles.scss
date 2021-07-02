@@ -12,7 +12,7 @@ table {
     width: 80%;
 }
 
-button {
+.form-button {
     margin-left: 20px;
     position: relative;
     bottom: 7px;
@@ -20,4 +20,13 @@ button {
 
 .nav-button {
     margin: 20px !important;
+}
+
+table, mat-spinner {
+    margin: auto;
+}
+
+.loading-message {
+    position: relative;
+    left: 47%;
 }

@@ -9,6 +9,15 @@
     "enterProductType": "Enter product type",
     "backToContainers": "Back to containers",
     "manageProducts": "Manage products",
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "dismiss": "Dismiss",
+    "failure": {
+        "loadProducts": "Lodaing products failed.",
+        "loadContainers": "Loading containers failed.",
+        "updateContainer": "Updating a container failed.",
+        "createProduct": "Failed to create a product."
+    },
     "button": {
         "save" : "Save",
         "addProduct": "Add product"
